@@ -21,10 +21,10 @@ DROP TABLE IF EXISTS `MiTec_ResidenciaProfesional`.`Empresa` ;
 
 CREATE TABLE IF NOT EXISTS `MiTec_ResidenciaProfesional`.`Empresa` (
   `RazonSocial` VARCHAR(50) NOT NULL,
-  `Nombre` VARCHAR(45) NOT NULL,
+  `Empresa_Nombre` VARCHAR(45) NOT NULL,
   `Ramo` VARCHAR(45) NOT NULL,
   `Domicilio` VARCHAR(45) NOT NULL,
-  `Representante` VARCHAR(45) NOT NULL,
+  `Representante` VARCHAR(90) NOT NULL,
   `Email` VARCHAR(45) NOT NULL,
   `Telefono` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`RazonSocial`))
@@ -38,7 +38,7 @@ DROP TABLE IF EXISTS `MiTec_ResidenciaProfesional`.`Proyecto` ;
 
 CREATE TABLE IF NOT EXISTS `MiTec_ResidenciaProfesional`.`Proyecto` (
   `IDProyecto` INT NOT NULL AUTO_INCREMENT,
-  `Nombre` VARCHAR(45) NOT NULL,
+  `Proyecto_Nombre` VARCHAR(45) NOT NULL,
   `FechaFinal` DATE NOT NULL,
   `Empresa_RazonSocial` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`IDProyecto`, `Empresa_RazonSocial`),
@@ -58,11 +58,10 @@ DROP TABLE IF EXISTS `MiTec_ResidenciaProfesional`.`Asesor` ;
 
 CREATE TABLE IF NOT EXISTS `MiTec_ResidenciaProfesional`.`Asesor` (
   `Clave` VARCHAR(18) NOT NULL,
-  `Asesro_PrNombre` VARCHAR(45) NOT NULL,
-  `Asesor_Segnombre` VARCHAR(45) NULL,
+  `Asesor_Nombres` VARCHAR(90) NOT NULL,
   `Asesor_ApellidoP` VARCHAR(45) NOT NULL,
   `Asesor_ApellidoM` VARCHAR(45) NOT NULL,
-  `Departamento` VARCHAR(45) NOT NULL,
+  `Academia` VARCHAR(45) NOT NULL,
   `Correo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`Clave`))
 ENGINE = InnoDB;
@@ -75,10 +74,9 @@ DROP TABLE IF EXISTS `MiTec_ResidenciaProfesional`.`Alumno` ;
 
 CREATE TABLE IF NOT EXISTS `MiTec_ResidenciaProfesional`.`Alumno` (
   `NoControl` VARCHAR(8) NOT NULL,
-  `Pr_Nombre` VARCHAR(45) NOT NULL,
-  `Seg_Nombre` VARCHAR(45) NULL,
-  `ApellidoP` VARCHAR(45) NOT NULL,
-  `ApellidoM` VARCHAR(45) NOT NULL,
+  `Alumno_Nombres` VARCHAR(90) NOT NULL,
+  `Alumno_ApellidoP` VARCHAR(45) NOT NULL,
+  `Alumno_ApellidoM` VARCHAR(45) NOT NULL,
   `Carrera` VARCHAR(45) NOT NULL,
   `Correo` VARCHAR(45) NOT NULL,
   `Semestre` INT NOT NULL,
@@ -102,21 +100,28 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `MiTec_ResidenciaProfesional`.`Avances`
+-- Table `MiTec_ResidenciaProfesional`.`Documento`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `MiTec_ResidenciaProfesional`.`Avances` ;
+DROP TABLE IF EXISTS `MiTec_ResidenciaProfesional`.`Documento` ;
 
-CREATE TABLE IF NOT EXISTS `MiTec_ResidenciaProfesional`.`Avances` (
+CREATE TABLE IF NOT EXISTS `MiTec_ResidenciaProfesional`.`Documento` (
   `Numero` INT NOT NULL,
   `Formato` VARCHAR(45) NOT NULL,
   `Estado` VARCHAR(45) NOT NULL,
   `FechaEntrega` DATE NOT NULL,
   `Proyecto_IDProyecto` INT NOT NULL,
-  PRIMARY KEY (`Numero`, `Proyecto_IDProyecto`),
+  `Alumno_NoControl` VARCHAR(8) NOT NULL,
+  PRIMARY KEY (`Numero`, `Proyecto_IDProyecto`, `Alumno_NoControl`),
   INDEX `fk_Avances_Proyecto1_idx` (`Proyecto_IDProyecto` ASC) VISIBLE,
+  INDEX `fk_Documento_Alumno1_idx` (`Alumno_NoControl` ASC) VISIBLE,
   CONSTRAINT `fk_Avances_Proyecto1`
     FOREIGN KEY (`Proyecto_IDProyecto`)
     REFERENCES `MiTec_ResidenciaProfesional`.`Proyecto` (`IDProyecto`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Documento_Alumno1`
+    FOREIGN KEY (`Alumno_NoControl`)
+    REFERENCES `MiTec_ResidenciaProfesional`.`Alumno` (`NoControl`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
