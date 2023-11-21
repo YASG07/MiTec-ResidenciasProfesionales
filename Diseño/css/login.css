@@ -1,0 +1,86 @@
+:root{
+    --blanco: #fff;
+    --negro: #000;
+    --primario: #87ceeb;
+    --secundario: #ffa500;
+    --gris: #757575;
+    --grisclaro: #9c9c9c;
+}
+html{
+    background: url(/Diseño/img/fondo.avif);
+}
+.cabecera{
+    background-color: var(--primario);
+    display: flex;
+    border-bottom: 2px solid var(--gris);
+    box-shadow: 4px 4px 0 0 var(--negro);
+}
+.titulos{
+    text-align: center;
+}
+.logos{
+    width: 15%;
+    height: 150px;
+}
+#TecNM{
+    margin-left: 40px;
+    margin-right: 200px;
+}
+#ITTepic{
+    margin-left: 200px;
+}
+.forma{
+    margin: 8% 40% 0 35%;
+}
+/*.forma .titulos{
+    padding: 10px 10px 10px 10px;
+    color: var(--negro);
+    background-color: var(--primario);
+    border-radius: 10px;
+    border: 2px solid var(--negro);
+    box-shadow: 2px 2px 2px 2px var(--gris);
+}*/
+#formulario{
+    width: 300px;
+    padding: 10px;
+    margin: auto;
+    border: 1px solid var(--negro);
+    border-radius: 4px;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: var(--secundario);
+    box-shadow: 2px 2px 2px 2px var(--gris);
+}
+/*#lblNC{
+    margin-left: 80px;
+}
+#lblNIP{
+    margin-left: 100px;
+}*/
+.txtNC, .txtNIP{
+    width: 90%;
+    background: var(--blanco);
+    padding: 10px;
+    border-radius: 4px;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    border: solid 1px;
+    color: var(--negro);
+}
+.boton{
+    width: 50%;
+    background: var(--blanco);
+    color: var(--negro);
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+    margin-top: 5px;
+    margin-left: 70px;
+}
+#btnLogin:hover{
+    border: 2px solid var(--gris);
+    background: var(--primario);
+}
+.forma #formulario .texto{
+    text-align: center;
+    font-size: 14px;
+}
